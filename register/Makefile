@@ -2,7 +2,7 @@ obj-m := register.o
 KDIR := /lib/modules/$(shell uname -r)/build
 PWD := $(shell pwd)
 MY_CFLAGS += -g -DDEBUG
-KBUILD_EXTRA_SYMBOLS :=/home/hwang/TaskForce/scheduler/Module.symvers
+KBUILD_EXTRA_SYMBOLS :=/home/hwang/taskforce/scheduler/Module.symvers
 
 defualt:
 	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules

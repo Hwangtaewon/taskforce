@@ -27,42 +27,56 @@ struct OurTask
 extern struct OurTask TaskForce;
 
 
+
 int test(void)
 {
 
-	__asm__ __volatile__(
+	char message[] = "32bit test\n";
 
-		"push $0x000a4141 ;" //message to print
+	 __asm__ __volatile__(
+	   
+		"push %%ebp ;"
+		"mov %%esp, %%ebp ;"
 		
-		//push printk argument 
-		//   it's like printk(message);
-		"push %%esp ;" 
 
+		"mov $10,%%esi ;"
+	   
+		//you have to back up the function address
+		"push %0 ; "
+		"push %1 ; "
+		
 
-		//insert return address to do addtional work
-		"call call_printk; " 
+	"mystart:;"
+
+		"mov -8(%%ebp), %%eax ;" //get message address which I saved in stack 
+      		"push %%eax ;" //pass argument of printk
+	      
+	        "call call_printk; " 
 		"jmp addtional_work;"
 
-		// call printk
-	"call_printk: ;"	
-		"jmp *%0;"
+	   "call_printk: ;"
+ 
+		"mov -4(%%ebp) ,%%eax ;" //get function address which I saved in stack
+	        "jmp *%%eax ;"
+	    
+	   "addtional_work: ;"
+		"add $4, %%esp ;" //remove printk argument 
 
+	      	//loop update
+		"dec %%esi;"
+		"cmp $0,%%esi;"
+		"jne mystart;"
 
-		//addtional works you want...
-		//now, go to infinite loop to avoid error 
-	"addtional_work: ;"
+		"leave ;"
 
-		"mov %%ebp, %%esp ;"
-
-
-
-		: //"=d" (re) //no output 
-		: "r" (printk) //input
-		: //"eax", "ebx" //used register
-
-	);
+		 : 
+		 : "r" (printk), "r"(message)
+		 : "eax", "esi"
+	      );
 
 }
+
+
 
 static int hello_init(void)
 {

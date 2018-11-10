@@ -37,7 +37,8 @@ int thread1(void *data)
 
 	TaskForce.next = NULL;
 	TaskForce.fp =NULL;	
-
+	
+	printk("scheduler is running...\n");
 
 	while(1)
 	{	
@@ -47,9 +48,10 @@ int thread1(void *data)
 			schedule();
 			continue;
 		}
-		msleep(1000);
 		
-
+		msleep(5000);
+		printk("new task is detected\n");
+		
 
 		fp = TaskForce.next->fp;
 		fp();

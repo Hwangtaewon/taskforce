@@ -19,11 +19,12 @@ __used
 __attribute__((section("__versions"))) = {
 	{ 0x884142c7, __VMLINUX_SYMBOL_STR(module_layout) },
 	{ 0x5705088a, __VMLINUX_SYMBOL_STR(__vmalloc) },
-	{ 0xf0e46b3d, __VMLINUX_SYMBOL_STR(kmem_cache_alloc_trace) },
-	{ 0xc8376e72, __VMLINUX_SYMBOL_STR(kmalloc_caches) },
+	{ 0x12da5bb2, __VMLINUX_SYMBOL_STR(__kmalloc) },
 	{ 0x492902a3, __VMLINUX_SYMBOL_STR(TaskForce) },
+	{ 0xdb7305a1, __VMLINUX_SYMBOL_STR(__stack_chk_fail) },
 	{ 0x50eedeb8, __VMLINUX_SYMBOL_STR(printk) },
 	{ 0xb4390f9a, __VMLINUX_SYMBOL_STR(mcount) },
+	{ 0x32b5fa2f, __VMLINUX_SYMBOL_STR(mem_section) },
 };
 
 static const char __module_depends[]
@@ -32,4 +33,4 @@ __attribute__((section(".modinfo"))) =
 "depends=scheduler";
 
 
-MODULE_INFO(srcversion, "DAEE69A247A53FA942C6E27");
+MODULE_INFO(srcversion, "0A6EE16D2616FC18FF55B01");
